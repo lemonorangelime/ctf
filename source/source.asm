@@ -15,17 +15,8 @@ section .text
 extern printf
 extern system
 extern main
-main: ; not part of the main challenge plz ignore
-	mov rax, 65556
-	shl rax, 7
-	or al, 1
-	mov eax, DWORD [rax]
-	xor eax, 0x20d54558
-	xor DWORD [rax], 0x12622e68
-	xor DWORD [rax + 4], 0x76757b73
-	xor DWORD [rax + 8], 0x00377c66
-	; ok stop ignoring
-
+main:
+	call nothing_dont_worry_about_it
 	mov rbp, rsp
 
 .prompt:
@@ -69,6 +60,46 @@ main: ; not part of the main challenge plz ignore
 	mov rsp, rbp
 	ret
 
-align 32
+align 64
 
 flag: db "{YOU CHEATER}", 0x0a, 0x00
+
+
+
+
+
+nothing_dont_worry_about_it:
+	xor rcx, rcx
+	mov BYTE [.thunk], 0x5b
+	call .thunk
+._thunk:
+	db 0xff
+.thunk:
+	db 0xff
+	mov BYTE [.thunk], 0xc3
+	push .thunk2
+	jmp .thunk
+	db 0xff
+	.1: dd 0x17342e6e
+	.2: dd 0x74767d22
+	.3: dd 0x0065746d
+.thunk2:
+	or al, [.thunk]
+	xor rax, rax
+	mov cl, [rbx + (.thunk2 - ._thunk)]
+	shl rcx, 8
+	xor rax, rcx
+	xor rcx, rcx
+.thunk3:
+	add BYTE [.thunk], 0x00
+	mov cl, [rbx + (.thunk3 - ._thunk)]
+	shl rcx, 16
+	xor rax, rcx
+	or rax, 1
+	mov ecx, [rbx + (.1 - ._thunk)]
+	xor DWORD [rax], ecx
+	mov ecx, [rbx + (.2 - ._thunk)]
+	xor DWORD [rax + 4], ecx
+	mov ecx, [rbx + (.3 - ._thunk)]
+	xor DWORD [rax + 8], ecx
+	ret
