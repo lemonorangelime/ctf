@@ -7,7 +7,7 @@ buffer: times 0x100 db 0
 incorrect: db "INCORRECT", 0x0a, 0x00
 db "       ", 0x0a, 0x00
 prompt: db "> "
-no: db "STILL WRONG", 0x0a, 0x00
+no: db "CORRECT BUT NOT THE POINT", 0x0a, 0x00
 
 align 256
 
