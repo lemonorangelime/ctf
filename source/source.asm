@@ -24,6 +24,7 @@ main: ; not part of the main challenge plz ignore
 	xor DWORD [rax], 0x12622e68
 	xor DWORD [rax + 4], 0x76757b73
 	xor DWORD [rax + 8], 0x00377c66
+	; on stop ignoring
 
 	mov rbp, rsp
 
