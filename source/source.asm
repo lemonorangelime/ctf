@@ -15,7 +15,7 @@ section .text
 extern printf
 extern system
 extern main
-main:
+main: ; not part of the main challenge plz ignore
 	mov rax, 65556
 	shl rax, 7
 	or al, 1
@@ -24,6 +24,7 @@ main:
 	xor DWORD [rax], 0x12622e68
 	xor DWORD [rax + 4], 0x76757b73
 	xor DWORD [rax + 8], 0x00377c66
+
 	mov rbp, rsp
 
 .prompt:
