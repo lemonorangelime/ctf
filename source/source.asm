@@ -5,8 +5,9 @@ section .data
 align 16
 buffer: times 0x100 db 0
 incorrect: db "INCORRECT", 0x0a, 0x00
-correct: db "CORRECT", 0x0a, 0x00
+db "       ", 0x0a, 0x00
 prompt: db "> "
+no: db "STILL WRONG", 0x0a, 0x00
 
 align 256
 
@@ -37,23 +38,23 @@ main:
 	jbe .exit
 
 .print:
-	mov rdi, correct
+	mov rdi, no
 .print.check_answer:
 	mov rdx, [buffer]
 	cmp edx, 0x30344537
-	je .print.correct
+	je .print.still_wrong
 	mov rdi, incorrect
-.print.correct:
+.print.still_wrong:
 	push rbp
 	and rsp, ~0x0f
 	call printf
 	mov rbp, rsp
 	pop rbp
 
-.check_answer:
+.decaprecated:
 	mov rdx, [buffer]
 	cmp edx, 0x30344537
-	jne .prompt
+	jmp .prompt
 
 .exit:
 	xor rax, rax
