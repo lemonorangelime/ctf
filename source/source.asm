@@ -51,7 +51,7 @@ main:
 	mov rbp, rsp
 	pop rbp
 
-.decaprecated:
+.checK_answer:
 	mov rdx, [buffer]
 	cmp edx, 0x30344537
 	jmp .prompt
